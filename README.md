@@ -1,9 +1,9 @@
 # Pyaq
 
-![top](https://user-images.githubusercontent.com/32036527/36086412-90005ab6-100f-11e8-912b-fdf30c61b2ef.png)  
-
 PyaqはPythonのみで実装された囲碁プログラムです。  
 Pyaqは深層学習のチュートリアルとして、囲碁のニューラルネットワークモデルを学習させ、実際に対局することを目的としています。  
+
+![top](https://user-images.githubusercontent.com/32036527/36086412-90005ab6-100f-11e8-912b-fdf30c61b2ef.png)  
 
 具体的には次の内容を行います。  
 - [TensorFlow](https://www.tensorflow.org/)で９路盤の棋譜を学習する
@@ -256,5 +256,5 @@ move count=3: left time=0.0[sec] evaluated=104
 ![top](https://user-images.githubusercontent.com/32036527/36086412-90005ab6-100f-11e8-912b-fdf30c61b2ef.png)   
 
 ## ライセンス
-[MITライセンス](https://github.com/ymgaq/Pyaq/blob/master/LICENSE.txt)  
+[MITライセンス](https://github.com/ymgaq/Pyaq/blob/master/LICENSE)  
 Author: [Yu Yamaguchi](https://twitter.com/ymg_aq)  
