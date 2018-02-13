@@ -191,7 +191,7 @@ def learn(lr_=1e-4, dr_=0.7, sgf_dir="sgf/", use_gpu=True, gpu_cnt=1):
 
         str_log = ""
         # str_summary = "%3.3f" % (float(global_step_idx) / total_steps * 100)
-        acc_steps = feed[1].size / batch_cnt
+        acc_steps = feed[1].size // batch_cnt
         np.random.shuffle(feed[0]._perm)
         for i in range(2):
             acc_str = "train" if i == 0 else "test "
