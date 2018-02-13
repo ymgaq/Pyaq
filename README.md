@@ -1,7 +1,7 @@
 # Pyaq
 
 PyaqはPythonのみで実装された囲碁プログラムです。  
-Pyaqは深層学習のチュートリアルとして、囲碁のニューラルネットワークモデルを学習させ、実際に対局することを目的としています。  
+このプログラムは深層学習のチュートリアルとして、囲碁のニューラルネットワークモデルを学習させ、実際に対局することを目的としています。  
 
 ![top](https://user-images.githubusercontent.com/32036527/36086412-90005ab6-100f-11e8-912b-fdf30c61b2ef.png)  
 
@@ -9,7 +9,7 @@ Pyaqは深層学習のチュートリアルとして、囲碁のニューラル�
 - [TensorFlow](https://www.tensorflow.org/)で９路盤の棋譜を学習する
 - 学習したモデルを使って対局する
 
-囲碁の対局や深層学習のための必要最低限の実装となっており、学習・実行のすべてのコードを合わせて1000行程度です。より発展的に学習したい方はソースコードを読んでみると良いでしょう。もちろんプルリクエストも歓迎です。  
+囲碁の対局や深層学習のための必要最小限の実装となっており、学習・実行のすべてのコードを合わせて1000行程度です。より発展的に学習したい方はソースコードを読んでみると良いでしょう。もちろんプルリクエストも歓迎です。  
 
 ## １． 準備する
 
@@ -23,26 +23,25 @@ TensorFlowでGPUを用いる場合は
 - CUDA 8.0
 - cuDNN 6.0  
   
-をインストールしておく必要があります。
+をインストールしておく必要があります。  
 導入は[CUDA 8.0とcuDNN 6をUbuntu 16.04LTSにインストールする](https://qiita.com/JeJeNeNo/items/05e148a325192004e2cd)を参考にしてください。  
 
 次に、ソースコードをダウンロードします。  
 ```
 $ git clone https://github.com/ymgaq/Pyaq
-$ cd Pyaq
-$ unzip sgf.zip
 ```
 または右上の「Clone or download」から手動でダウンロードすることもできます。  
 これで準備は完了です。  
 
-試しにテスト対戦が動作するかを確認してみましょう。  
+すぐ遊びたい人は、学習済みのデータファイル```Pyaq/pre_train/model.ckpt```を```Pyaq/```にコピーし、「4.GoGuiで対局する」に進んでください。  
+
+では試しにテスト対戦が動作するかを確認してみましょう。  
 
 ```
 $ ./pyaq.py --self --random
 ```
 
 次のような出力が出れば成功です。「2.学習する」に進みましょう。  
-すぐ遊びたい人は、```Pyaq/pre_train/model.ckpt```を```Pyaq/```にコピーし、「4.GoGuiで対局する」に進んでください。  
 
 ```
    A  B  C  D  E  F  G  H  J 
@@ -75,7 +74,14 @@ result: W+16.0
 
 ## 2. 学習する
 
-9路盤の棋譜ファイル（sgf/）を用いて学習を行います。次のコマンドを実行すると、学習が始まります。  
+まず、学習用ファイルを展開します。  
+
+```
+$ cd Pyaq
+$ unzip sgf.zip
+```
+
+9路盤の棋譜ファイル（*.sgf）を用いて学習を行います。次のコマンドを実行すると、学習が始まります。  
 
 ```
 $ ./pyaq.py --learn
@@ -91,12 +97,6 @@ $ ./pyaq.py --learn --cpu
 GPUの性能にもよりますが、大体3〜4時間で学習が完了します。 CPUのみの場合は3日程度かかります。  
 
 ```
-2018-02-12 13:03:00.990951: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
-2018-02-12 13:03:01.670617: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
-name: GeForce GTX 1080 major: 6 minor: 1 memoryClockRate(GHz): 1.7335
-pciBusID: 0000:01:00.0
-totalMemory: 7.92GiB freeMemory: 7.24GiB
-2018-02-12 13:03:01.670642: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080, pci bus id: 0000:01:00.0, compute capability: 6.1)
 imported 34572 sgf files.
 converting ...
 learning rate=0.0003
@@ -223,17 +223,17 @@ move count=3: left time=0.0[sec] evaluated=104
 ```
 
 思考ログの内容は次の通りです。  
-- move count: 手数
-- left time: 残り時間
-- evaluated: この思考で評価された盤面の数
-- move: 候補手
-- count: 探索回数
-- rate: 手番側からみた勝率
-- value: 候補手を着手した場合の評価値
-- prob: 候補手の確率
-- best sequence: 候補手の後の読み筋
+- ```move count``` 手数
+- ```left time``` 残り時間
+- ```evaluated``` この思考で評価された盤面の数
+- ```move``` 候補手
+- ```count``` 探索回数
+- ```rate``` 手番側からみた勝率
+- ```value``` 候補手を着手した場合の評価値
+- ```prob``` 候補手の確率
+- ```best sequence``` 候補手の後の読み筋
 
-また、pyaq.pyのコマンドラインオプションは  
+また、pyaq.pyのコマンドラインオプションは以下の通りです。  
 - ```--cpu``` CPUのみを使用する
 - ```--learn``` 棋譜から学習する
 - ```--self``` コンソールで自己対戦を行う
@@ -251,7 +251,7 @@ move count=3: left time=0.0[sec] evaluated=104
 
 ![resister](https://user-images.githubusercontent.com/32036527/36086431-acdf1168-100f-11e8-9127-adc138b3fa3d.png)  
 
-起動したらGUIで対局することができます。 思考ログはメニュー＞ツール＞GPTシェルから見ることができます。 
+起動したらGUIで対局することができます。 思考ログはメニュー＞ツール＞GTPシェルから見ることができます。 
 
 ![top](https://user-images.githubusercontent.com/32036527/36086412-90005ab6-100f-11e8-912b-fdf30c61b2ef.png)   
 

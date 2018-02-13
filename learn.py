@@ -80,7 +80,7 @@ def learn(lr_=1e-4, dr_=0.7, sgf_dir="sgf/", use_gpu=True, gpu_cnt=1):
         f_list = []
         r_list = []
         m_list = []
-        for gpu_idx in xrange(gpu_cnt):
+        for gpu_idx in range(gpu_cnt):
             f_list.append(tf.placeholder(
                 "float", shape=[None, BVCNT, FEATURE_CNT],
                 name="feature_%d" % gpu_idx))
@@ -97,7 +97,7 @@ def learn(lr_=1e-4, dr_=0.7, sgf_dir="sgf/", use_gpu=True, gpu_cnt=1):
         # compute and apply gradients
         tower_grads = []
         with tf.variable_scope(tf.get_variable_scope()):
-            for gpu_idx in xrange(gpu_cnt):
+            for gpu_idx in range(gpu_cnt):
                 with tf.device("/%s:%d" % (device_name, gpu_idx)):
 
                     policy_, value_ = dn.model(

@@ -114,8 +114,9 @@ class Tree(object):
         nd_rate = 0.0 if nd.total_cnt == 0 else nd.total_value / nd.total_cnt
         cpsv = Tree.cp * sqrt(nd.total_cnt)
 
-        rate = nd.value_win / nd.visit_cnt  # including dividing by 0
-        rate[~np.isfinite(rate)] = nd_rate  # convert nan, inf, -inf to nd_rate
+        with np.errstate(divide='ignore', invalid='ignore'):
+            rate = nd.value_win / nd.visit_cnt  # including dividing by 0
+            rate[~np.isfinite(rate)] = nd_rate  # convert nan, inf to nd_rate
         action_value = rate + cpsv * nd.prob / (nd.visit_cnt + 1)
         best = np.argmax(action_value[:nd.branch_cnt])
 
@@ -229,6 +230,7 @@ class Tree(object):
             stderr.write("\nmove count=%d: left time=%.1f[sec] evaluated=%d\n" % (
                 b.move_cnt + 1, max(self.left_time - time_, 0), self.eval_cnt))
             self.print_info(self.root_id)
+            self.left_time = max(0.0, self.left_time - (time.time() - start))
 
         return next_move, win_rate
 
