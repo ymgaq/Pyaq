@@ -303,7 +303,7 @@ class Board(object):
         return stone_cnt[1] - stone_cnt[0] - KOMI
 
     def rollout(self, show_board=False):
-        while self.move_cnt < EBVCNT * 1.5:
+        while self.move_cnt < EBVCNT * 2:
             prev_move = self.prev_move
             move = self.random_play()
             if show_board and move != PASS:
@@ -355,7 +355,7 @@ class Board(object):
 
         return feature_[rv_list, :]
 
-    def get_hash(self):
+    def hash(self):
         return (hash(str(self.color.data)) ^
                 hash(str(self.prev_color[0].data)) ^ self.turn)
 
@@ -366,4 +366,4 @@ class Board(object):
             if self.legal(v) and not self.eyeshape(v, self.turn):
                 cand_list.append(ev2rv(v))
         cand_list.append(ev2rv(PASS))
-        return (self.get_hash(), self.move_cnt, cand_list)
+        return (self.hash(), self.move_cnt, cand_list)

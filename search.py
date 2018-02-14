@@ -147,7 +147,7 @@ class Tree(object):
                 next_id = self.create_node(b.info(), prob_[0])
                 next_nd = self.node[next_id]
                 nd.next_id[best] = next_id
-                nd.next_hash[best] = b.get_hash()
+                nd.next_hash[best] = b.hash()
 
                 next_nd.total_value -= nd.value_win[best]
                 next_nd.total_cnt += nd.visit_cnt[best]

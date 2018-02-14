@@ -46,7 +46,7 @@ if __name__ == "__main__":
         if not random:
             tree = search.Tree("model.ckpt", use_gpu)
 
-        while b.move_cnt < BVCNT * 1.5:
+        while b.move_cnt < BVCNT * 2:
             prev_move = b.prev_move
             if random:
                 move = b.random_play()
@@ -75,7 +75,7 @@ if __name__ == "__main__":
         else:
             winner = "B" if score > 0 else "W"
             result_str = "%s+%.1f" % (winner, abs(score))
-        sys.stderr.write("\nresult: %s\n" % result_str)
+        sys.stderr.write("result: %s\n" % result_str)
 
     else:
         learn.learn(3e-4, 0.5, sgf_dir="sgf/", use_gpu=use_gpu, gpu_cnt=1)

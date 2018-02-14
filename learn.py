@@ -66,7 +66,7 @@ def average_gradients(tower_grads):
 
 def stdout_log(str):
     stdout.write(str)
-    log_file = open("log.txt", "aw")
+    log_file = open("log.txt", "a")
     log_file.write(str)
     log_file.close()
 

@@ -20,11 +20,11 @@ PyaqはPythonのみで実装された囲碁プログラムです。
   
 TensorFlowの導入は[UbuntuにTensorFlowをインストール](https://qiita.com/yudsuzuk/items/092c38fee18e4484ece9)を参考にしてください。  
 TensorFlowでGPUを用いる場合は  
-- CUDA 8.0
-- cuDNN 6.0  
+- [CUDA Toolkit 9.0](https://developer.nvidia.com/cuda-90-download-archive)
+- [cuDNN v7.0](https://developer.nvidia.com/cudnn)
   
-をインストールしておく必要があります。  
-導入は[CUDA 8.0とcuDNN 6をUbuntu 16.04LTSにインストールする](https://qiita.com/JeJeNeNo/items/05e148a325192004e2cd)を参考にしてください。  
+をインストールしておく必要があります。また、nVidia製の[CUDA Capability](https://developer.nvidia.com/cuda-gpus)3.5以上のグラフィックボードが必要です。  
+CUDA導入は[CUDA 8.0とcuDNN 6をUbuntu 16.04LTSにインストールする](https://qiita.com/JeJeNeNo/items/05e148a325192004e2cd)などを参考にしてください（注：リンク先の場合とバージョンが異なります）。  
 
 次に、ソースコードをダウンロードします。  
 ```
@@ -68,7 +68,6 @@ $ ./pyaq.py --self --random
  1 X  .  X  O  O  O  O  O  .  1
    A  B  C  D  E  F  G  H  J 
 
-
 result: W+16.0
 ```
 
@@ -88,6 +87,7 @@ $ ./pyaq.py --learn
 ```
 
 GPUなしで学習させたい場合は```--cpu```オプションを追加してください。  
+（ただし、CPUのみの学習は十分にテストされていません。）  
 
 ```
 $ ./pyaq.py --learn --cpu
@@ -134,6 +134,8 @@ progress: 2.70[%] 13.4[sec]
 
 2.5%ごとにtestデータの評価を行います。 ```policy```は棋譜の次の手とニューラルネットワークが出力する手との一致率、```value```は棋譜の勝敗とネットワークが出力する評価値（-1~+1）の誤差（Mean Squared Error）を表します。 最終的に、testデータでpolicyが57%、valueが0.36程度になるようです。  
 学習が完了すると、パラメータファイル```model.ckpt```が保存されます。  
+
+ネットワークモデルの```BLOCK_CNT```や```FILTER_CNT```、または盤面の```KEEP_PREV_CNT```などを変更したり、モデルの形を変えたり、オリジナルの棋譜データを使用することで、より強力なパラメータを生成できる可能性があります。 興味がある方は、あなただけの最強のネットワーク作りに挑戦してみましょう。  
 
 ## 3. 自己対戦をさせてみる（コンソール）
 
@@ -245,9 +247,11 @@ move count=3: left time=0.0[sec] evaluated=104
 
 ## 4. GoGuiで対局する
 
+学習をしていない人は、学習済みのデータファイル```Pyaq/pre_train```にある```/model.ckpt```を```Pyaq/```にコピーしてください。  
+
 [GoGui](https://sourceforge.net/projects/gogui/files/gogui/1.4.9/)を使ってGUIでの対局を行います。  
 メニュー＞対局＞碁盤サイズを「9」に設定した後、
-メニュー＞プログラム＞新規プログラムから実行コマンドとワーキングディレクトリを登録します。  
+メニュー＞プログラム＞新規プログラムから「コマンド」と「ワーキングディレクトリ」を登録します。  
 
 ![resister](https://user-images.githubusercontent.com/32036527/36086431-acdf1168-100f-11e8-9127-adc138b3fa3d.png)  
 
