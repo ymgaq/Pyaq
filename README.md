@@ -247,7 +247,7 @@ move count=3: left time=0.0[sec] evaluated=104
 
 ## 4. GoGuiで対局する
 
-学習をしていない人は、学習済みのデータファイル```Pyaq/pre_train```にある```/model.ckpt```を```Pyaq/```にコピーしてください。  
+学習をしていない人は、学習済みのデータファイル```Pyaq/pre_train```にある```model.ckpt```を```Pyaq/```にコピーしてください。  
 
 [GoGui](https://sourceforge.net/projects/gogui/files/gogui/1.4.9/)を使ってGUIでの対局を行います。  
 メニュー＞対局＞碁盤サイズを「9」に設定した後、
