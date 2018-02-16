@@ -126,7 +126,7 @@ class Tree(object):
 
         head_node = not self.has_next(node_id, best, b.move_cnt + 1) or \
             nd.visit_cnt[best] < expand_cnt or \
-            (b.move_cnt > BVCNT * 1.5) or \
+            (b.move_cnt > BVCNT * 2) or \
             (next_move == PASS and b.prev_move == PASS)
 
         b.play(next_move, False)

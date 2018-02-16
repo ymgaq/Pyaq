@@ -356,8 +356,8 @@ class Board(object):
         return feature_[rv_list, :]
 
     def hash(self):
-        return (hash(str(self.color.data)) ^
-                hash(str(self.prev_color[0].data)) ^ self.turn)
+        return (hash(self.color.tostring()) ^
+                hash(self.prev_color[0].tostring()) ^ self.turn)
 
     def info(self):
         empty_list = np.where(self.color == 2)[0]
