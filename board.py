@@ -307,8 +307,8 @@ class Board(object):
             prev_move = self.prev_move
             move = self.random_play()
             if show_board and move != PASS:
-                stderr.write("\nmove count=%d\n" % b.move_cnt)
-                b.showboard()
+                stderr.write("\nmove count=%d\n" % self.move_cnt)
+                self.showboard()
             if prev_move == PASS and move == PASS:
                 break
 
