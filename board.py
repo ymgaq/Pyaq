@@ -314,13 +314,13 @@ class Board(object):
 
     def showboard(self):
 
-        def pirnt_xlabel():
+        def print_xlabel():
             line_str = "  "
             for x in range(BSIZE):
                 line_str += " " + x_labels[x] + " "
             stderr.write(line_str + "\n")
 
-        pirnt_xlabel()
+        print_xlabel()
 
         for y in range(1, BSIZE + 1)[::-1]:  # 9, 8, ..., 1
             line_str = str(y) if y >= 10 else " " + str(y)
