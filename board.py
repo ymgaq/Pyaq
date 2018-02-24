@@ -307,20 +307,20 @@ class Board(object):
             prev_move = self.prev_move
             move = self.random_play()
             if show_board and move != PASS:
-                stderr.write("\nmove count=%d\n" % b.move_cnt)
-                b.showboard()
+                stderr.write("\nmove count=%d\n" % self.move_cnt)
+                self.showboard()
             if prev_move == PASS and move == PASS:
                 break
 
     def showboard(self):
 
-        def pirnt_xlabel():
+        def print_xlabel():
             line_str = "  "
             for x in range(BSIZE):
                 line_str += " " + x_labels[x] + " "
             stderr.write(line_str + "\n")
 
-        pirnt_xlabel()
+        print_xlabel()
 
         for y in range(1, BSIZE + 1)[::-1]:  # 9, 8, ..., 1
             line_str = str(y) if y >= 10 else " " + str(y)
@@ -338,7 +338,7 @@ class Board(object):
             line_str += str(y) if y >= 10 else " " + str(y)
             stderr.write(line_str + "\n")
 
-        pirnt_xlabel()
+        print_xlabel()
         stderr.write("\n")
 
     def feature(self):

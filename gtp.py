@@ -52,7 +52,8 @@ def call_gtp(main_time, byoyomi, quick=False, clean=False, use_gpu=True):
             stdout.write("=")
             for cmd in cmd_list:
                 stdout.write(cmd + "\n")
-            send("")
+            stdout.write("\n")
+            stdout.flush()
         elif include(str, "boardsize"):
             bs = int(args(str)[0])
             if bs != BSIZE:
