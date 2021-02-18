@@ -31,7 +31,7 @@ class Node(object):
         self.value_win = np.full(BVCNT + 1, 0.0)
         self.visit_cnt = np.full(BVCNT + 1, 0)
         self.next_id = np.full(BVCNT + 1, -1)
-        self.next_hash = np.full(BVCNT + 1, -1)
+        self.next_hash = np.full(BVCNT + 1, -1, dtype="int64")
         self.evaluated = np.full(BVCNT + 1, False)
 
 
